@@ -1,4 +1,4 @@
-import { useNavigate, Form, useNavigation } from 'react-router-dom';
+import { useNavigate, Form, useNavigation, json, redirect } from 'react-router-dom';
 import classes from './EventForm.module.css';
 
 function EventForm({ method, event = {} }) {
@@ -13,7 +13,7 @@ function EventForm({ method, event = {} }) {
   const {title, image, date, description} = event
 
   return (
-    <Form method='post'  className={classes.form}>
+    <Form method={method}  className={classes.form}>
       <p>
         <label htmlFor="title">Title</label>
         <input id="title" type="text" name="title" required  defaultValue={title ?? ''}/>
@@ -41,3 +41,32 @@ function EventForm({ method, event = {} }) {
 }
 
 export default EventForm;
+
+
+export async function submitFormData({request, params}) {
+  const data = await request.formData()
+  const eventData = {
+      title: data.get('title'),
+      image: data.get('image'),
+      date: data.get('date'),
+      description: data.get('description')
+  }
+  const id = params.eventId
+
+  let url = "http://localhost:8080/events"
+
+  if(request.method  === 'PATCH'){
+    url = "http://localhost:8080/events/" + id
+  }
+ const response = await fetch(url, {
+      method: request.method,
+      body: JSON.stringify(eventData),
+      headers: {
+          "Content-Type": 'application/json'
+      }
+  })
+  if(!response.ok){
+      throw json({message: "Can't submit the data"}, {status: 500})
+  }
+  return redirect("/events")
+}   

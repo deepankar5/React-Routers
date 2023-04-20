@@ -3,7 +3,7 @@ import {useRouteLoaderData} from "react-router-dom"
 const EditEventPage = () => {
     const data = useRouteLoaderData('event_details')
 
-    return <EventForm  event={data.event}/>
+    return <EventForm  method='patch' event={data.event}/>
     
 }
 
