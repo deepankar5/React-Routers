@@ -2,7 +2,7 @@ import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import HomePage from './components/pages/HomePage';
 import EventsPage, {getEvents} from './components/pages/EventsPage';
 import EventsDetailPage, { getIndividualEvent } from './components/pages/EventsDetailPage';
-import NewEventPage from "./components/pages/NewEventPage";
+import NewEventPage , {submitFormData} from "./components/pages/NewEventPage";
 import EditEventPage from "./components/pages/EditEventPage";
 import RootLayout from './components/pages/RootLayout';
 import EventsRootLayout from './components/pages/EventsRootLayout';
@@ -29,7 +29,7 @@ function App() {
           element: <EventsDetailPage/>,},
       {path: 'edit', element: <EditEventPage/>}],
       },
-      {path: 'new', element: <NewEventPage/>}
+      {path: 'new', element: <NewEventPage/>, action: submitFormData}
       ]}
     ]}
   ])  
