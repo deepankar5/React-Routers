@@ -1,5 +1,4 @@
 import { useNavigate, Form } from 'react-router-dom';
-
 import classes from './EventForm.module.css';
 
 function EventForm({ method, event = {} }) {

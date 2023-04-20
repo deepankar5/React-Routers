@@ -1,7 +1,7 @@
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import HomePage from './components/pages/HomePage';
 import EventsPage, {getEvents} from './components/pages/EventsPage';
-import EventsDetailPage, { getIndividualEvent } from './components/pages/EventsDetailPage';
+import EventsDetailPage, { deleteEvent, getIndividualEvent } from './components/pages/EventsDetailPage';
 import NewEventPage , {submitFormData} from "./components/pages/NewEventPage";
 import EditEventPage from "./components/pages/EditEventPage";
 import RootLayout from './components/pages/RootLayout';
@@ -26,7 +26,9 @@ function App() {
         id: 'event_details',
         children: [
           {index: true,
-          element: <EventsDetailPage/>,},
+          element: <EventsDetailPage/>,
+          action: deleteEvent
+        },
       {path: 'edit', element: <EditEventPage/>}],
       },
       {path: 'new', element: <NewEventPage/>, action: submitFormData}
